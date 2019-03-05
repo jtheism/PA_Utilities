@@ -1,0 +1,7 @@
+set shared log-settings profiles "Log Forwarding" match-list "Traffic to Panorama" log-type traffic filter "All Logs" send-to-panorama yes
+set shared log-settings profiles "Log Forwarding" match-list "Threat to Panorama" log-type threat filter "All Logs" send-to-panorama yes
+set shared log-settings profiles "Log Forwarding" match-list "Data to Panorama" log-type data filter "All Logs" send-to-panorama yes
+set shared log-settings profiles "Log Forwarding" match-list "URL to Panorama" log-type url filter "All Logs" send-to-panorama yes
+set shared log-settings profiles "Log Forwarding" match-list "Wildfire to Panorama" log-type wildfire filter "All Logs" send-to-panorama yes
+set template *template config shared log-settings system match-list "System Logs to Panorama" filter "All Logs" send-to-panorama yes
+set template *template config shared log-settings config match-list "Config Logs to Panorama" filter "All Logs" send-to-panorama yes
