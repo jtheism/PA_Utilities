@@ -4,15 +4,13 @@ from tkinter.filedialog import Tk, asksaveasfilename
 from tkinter import messagebox
 Tk().withdraw()  # Prevents tkinter window from opening
 
-models = {1: ["PA220", 2100, 3990], 2: ["PA820", 4150, 7885], 3: ["PA850", 6500, 12350], 4: ["PA3220", 28500, 54150],
-          5: ["PA3250", 42000, 79800], 6: ["PA3260", 59000, 112100], 7: ["PA5250", 142000, 269800],
-          8: ["PA5260", 195000, 370500], 9: ["PA5280", 195000, 370500], 10: ["PA7050", 1450000, 2755000],
-          11: ["PA7080", 2400000, 4560000], 12: ["VM50", 1500, 2850], 13: ["VM100", 7500, 14250],
-          14: ["VM200", 7500, 14250], 15: ["VM300", 15000, 28500], 16: ["VM500", 30000, 57000],
-          17: ["VM700", 60000, 114000], 18: ["VM1000-HV", 15000, 28500]}
+models = {1: ["PA-220", 2100, 3990], 2: ["PA-820", 4150, 7885], 3: ["PA-850", 6500, 12350],
+          4: ["PA-3220", 28500, 54150], 5: ["PA-3250", 42000, 79800], 6: ["PA-3260", 59000, 112100],
+          7: ["PA-5250", 142000, 269800], 8: ["PA-5260", 195000, 370500], 9: ["PA-5280", 195000, 370500],
+          10: ["PA-7050", 1450000, 2755000], 11: ["PA-7080", 2400000, 4560000], 12: ["VM-50", 1500, 2850],
+          13: ["VM-100", 7500, 14250], 14: ["VM-200", 7500, 14250], 15: ["VM-300", 15000, 28500],
+          16: ["VM-500", 30000, 57000], 17: ["VM-700", 60000, 114000], 18: ["VM-1000-HV", 15000, 28500]}
 
-# template_name = "temp"
-# devicegroup_name = "devgrp"
 
 text_list = ["set deviceconfig", "set mgt-config", "set network profiles", "set zone", "set tag", "set profiles",
              "set profile-group", "set shared log-settings profiles",
@@ -50,7 +48,6 @@ if is_panorama == "y":
                 pano_cmds.append(line.replace("*devgrp", devicegroup_name))
             else:
                 pano_cmds.append(line)
-
 
 
 is_model = int(input("Model?\n\n1: PA-220    2: PA-820    3: PA-850\n4: PA-3220   5: PA-3250   6: PA-3260\n"
