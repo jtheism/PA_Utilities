@@ -79,5 +79,6 @@ temp_out.write("\n")
 for each in output_list:
     temp_out.write(each)
 
+
 temp_out.close()
 messagebox.showinfo("Success", f"Proxy-ID Set commands text file saved as: {temp_out.name}.")
