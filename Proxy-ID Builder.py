@@ -6,20 +6,34 @@ Tk().withdraw()  # Prevents tkinter window from opening
 
 
 def proxy_builder():
-    tunnel_num = ''
+    tunnel_num = ""
     ipsec_name = input("Enter IPSEC Tunnel Name:\n")
     do_routes = input("Would you like to create routes for these remote networks? (y or n)\n")
-    if do_routes == 'y':
+    if do_routes.lower() == "y":
         tunnel_num = str(input("Enter tunnel interface number:\n"))
         vrouter_name = str(input("Enter virtual router name:\n"))
     local_nets = []
     remote_nets = []
     p_num = 1  # for Proxy-ID name  p1, p2, p3, etc.
     while True:
-        local_net = input("Enter a local network and hit enter. "
+        local_net = input("Enter a local network and hit enter. Enter \"d\" to delete a network. "
                           "Press Enter without input to move on to remote networks entry.\n")
         if local_net == "":
             break
+        elif local_net.lower() == "d":
+            try:
+                local_nets.remove(input("Enter local network to delete:\n"))
+                print("\nLocal Networks:")
+                for net in local_nets:
+                    print(net)
+                print()
+            except ValueError:
+                print("Local network not in list.")
+                print("\nLocal Networks:")
+                for net in local_nets:
+                    print(net)
+                print()
+                continue
         else:
             local_nets.append(local_net)
         print("\nLocal Networks:")
@@ -28,9 +42,24 @@ def proxy_builder():
         print()
 
     while True:
-        remote_net = input("Enter a remote network and hit enter. Press Enter without input to finish.\n")
+        remote_net = input("Enter a remote network and hit enter. Enter \"d\" to delete a network. "
+                           "Press Enter without input to finish.\n")
         if remote_net == "":
             break
+        elif remote_net.lower() == "d":
+            try:
+                remote_nets.remove(input("Enter remote network to delete:\n"))
+                print("\nRemote Networks:")
+                for net in remote_nets:
+                    print(net)
+                print()
+            except ValueError:
+                print("Remote network not in list.")
+                print("\nRemote Networks:")
+                for net in remote_nets:
+                    print(net)
+                print()
+                continue
         else:
             remote_nets.append(remote_net)
         print("Remote Networks:")
@@ -39,7 +68,7 @@ def proxy_builder():
 
     for lnet in local_nets:
         for rnet in remote_nets:
-            if is_panorama != '':
+            if is_panorama != "":
                 output_list.append(f'set template \"{is_panorama}\" config network tunnel ipsec \"{ipsec_name}\" '
                                    f'auto-key proxy-id p{p_num} local {lnet} remote {rnet}\n')
             else:
@@ -47,9 +76,9 @@ def proxy_builder():
                                    f'remote {rnet}\n')
             p_num += 1
 
-    if do_routes == "y":
+    if do_routes.lower() == "y":
         for ext_net in remote_nets:
-            if is_panorama != '':
+            if is_panorama != "":
                 route_list.append(f'set template {is_panorama} config network virtual-router \"{vrouter_name}\" '
                                   f'routing-table ip static-route {ipsec_name[:11]}-{ext_net.replace("/", "_")} '
                                   f'interface tunnel.{tunnel_num} metric 10 destination {ext_net}\n')
@@ -74,7 +103,7 @@ proxy_builder()
 # Ask user if there are other tunnels, if so run function again, otherwise break out and go to output creation.
 while True:
     more = input("Do you have another tunnel to enter?  (y or n)\n")
-    if more == "y":
+    if more.lower() == "y":
         proxy_builder()
     else:
         break
