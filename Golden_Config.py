@@ -29,13 +29,6 @@ is_panorama = input("Is this for Panorama? (y or n)\n").lower()
 # print(is_panorama)
 
 
-# moved to GoldCfgPanoCmds file
-# pano_cmds = [f"set template {template_name} config shared log-settings system match-list "
-#              f"\"System Logs to Panorama\" "
-#              f"filter \"All Logs\" send-to-panorama yes\n",
-#              f"set template {template_name} config shared log-settings "
-#              f"config match-list \"Config Logs to Panorama\" filter \"All Logs\" send-to-panorama yes\n"]
-
 
 if is_panorama == "y":
     template_name = input("Enter Template name:\n")
