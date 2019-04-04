@@ -13,6 +13,7 @@ type1_dict = {
         "ipsec": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/network/tunnel/ipsec to-xpath /config/devices/entry[@name='localhost.localdomain']/network/tunnel/ipsec mode **mode"
         }
 
+
 type2_dict = {
         "tags": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/tag to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/tag mode **mode",
         "interfaces": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/network/interface to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/interface mode **mode",
