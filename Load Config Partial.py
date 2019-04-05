@@ -22,10 +22,10 @@ type2_dict = {
         "svc_groups": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service-group mode **mode",
         "addresses": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address mode merge",
         "addr_groups": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address-group mode **mode",
-        "sec_pols_pre": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/security/rules mode **mode",
-        "sec_pols_post": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/security/rules mode **mode",
-        "nat_pols_pre": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules mode **mode",
-        "nat_pols_post": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/nat/rules mode **mode"
+        "sec_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/security/rules mode **mode",
+        "sec_rules>post-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/security/rules mode **mode",
+        "nat_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules mode **mode",
+        "nat_rules>post-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/nat/rules mode **mode"
         }
 
 type3_dict = {
@@ -55,9 +55,21 @@ def make_selections(migrate_type):
                    7: "addresses", 8: "addr_groups", 9: "sec_pols", 10: "nat_pols", 11: "ike", 12: "ipsec"}
         print(options)
     elif migrate_type == "2":
-        options = {0: "all", 1: "tags", 2: "interfaces", 3: "routers", 4: "services", 5: "svc_groups", 6: "addresses",
-                   7: "addr_groups", 8: "sec_pols_pre", 9: "sec_pols_post", 10: "nat_pols_pre", 11: "nat_pols_post"}
+        while True:
+            pre_or_post = input("Import rules into 1. pre-rulebase or 2. post-rulebase?  Enter 1 or 2.\n")
+            if pre_or_post not in "12":
+                continue
+            else:
+                break
+
+        if pre_or_post == "1":
+            options = {0: "all", 1: "tags", 2: "interfaces", 3: "routers", 4: "services", 5: "svc_groups",
+                       6: "addresses", 7: "addr_groups", 8: "sec_rules>pre-rulebase", 9: "nat_rules>pre-rulebase"}
+        else:
+            options = {0: "all", 1: "tags", 2: "interfaces", 3: "routers", 4: "services", 5: "svc_groups",
+                       6: "addresses", 7: "addr_groups", 8: "sec_rules>post-rulebase", 9: "nat_rules>post-rulebase"}
         print(options)
+        
     else:
         options = {}
         exit()
