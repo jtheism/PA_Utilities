@@ -42,11 +42,14 @@ if is_panorama == "y":
             else:
                 pano_cmds.append(line)
 
-
-is_model = int(input("Model?\n\n1: PA-220    2: PA-820    3: PA-850\n4: PA-3220   5: PA-3250   6: PA-3260\n"
-                     "7: PA-5250   8: PA-5260   9: PA-5280   10: PA-7050   11: PA-7080\n12: VM-50   13: VM-100   "
-                     "14: VM-200   15: VM-300   16: VM-500   17: VM-700   18: VM-1000HV\n"))
-
+while True:
+    try:
+        is_model = int(input("Model?\n\n1: PA-220    2: PA-820    3: PA-850\n4: PA-3220   5: PA-3250   6: PA-3260\n"
+                         "7: PA-5250   8: PA-5260   9: PA-5280   10: PA-7050   11: PA-7080\n12: VM-50   13: VM-100   "
+                         "14: VM-200   15: VM-300   16: VM-500   17: VM-700   18: VM-1000HV\n"))
+        break
+    except ValueError:
+        continue
 
 cmds_out = [line.replace("alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate",
                          "alarm-rate " + str(models[is_model][1]) + " activate-rate " + str(models[is_model][1]) +
