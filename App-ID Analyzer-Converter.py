@@ -1,7 +1,7 @@
 import csv
 import os
 import openpyxl
-from openpyxl.styles import Font
+from openpyxl.styles import Font, PatternFill
 from tkinter.filedialog import askopenfilename, asksaveasfilename, Tk
 # from tkinter import messagebox
 # Tk().withdraw()  # Prevents tkinter window from opening
@@ -18,9 +18,9 @@ def mode_1_import():
     rules_dict = None  # Eliminates Pycharm Error
     # parse ruleset and get rule names and details
     try:
-        # with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
-        #                           title="Select Security Rules CSV exported from Palo Alto firewall.")) as rules_file:
-        with open("C:\\Users\\Jason\\Desktop\\policies.csv") as rules_file:
+        with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
+                                  title="Select Security Rules CSV exported from Palo Alto firewall.")) as rules_file:
+        # with open("C:\\Users\\Jason\\Desktop\\policies.csv") as rules_file:
 
             csv_ruleset = csv.reader(rules_file, delimiter=',')
             # Test for input
@@ -41,9 +41,9 @@ def mode_1_import():
 
     # read in csv file of logs
     try:
-        # with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop") ,
-        #                           title="Select Log File CSV exported from Palo Alto firewall.")) as log_file:
-        with open("C:\\Users\\Jason\\Desktop\\log2.csv") as log_file:
+        with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
+                                  title="Select Log File CSV exported from Palo Alto firewall.")) as log_file:
+        # with open("C:\\Users\\Jason\\Desktop\\log2.csv") as log_file:
             # parse logs to get apps and dest_ports for each rule and mark rule as hit
             csv_logs = csv.reader(log_file, delimiter=',')
             ignored_apps = ["insufficient-data", "unknown-udp", "unknown-tcp", "incomplete"]
@@ -74,7 +74,10 @@ def mode_1_import():
     except FileNotFoundError:
         print("Process cancelled.")
         exit()
+    # try:
     del rules_dict["Name"]
+    # except KeyError:
+    #     pass
     del rules_dict["intrazone-default"]
     del rules_dict["interzone-default"]
     return rules_dict
@@ -106,9 +109,9 @@ def create_wb_out(h_dict):
     ws["G1"].font = Font(bold=True, size=14, color="2f75b5")
     ws["H1"] = "Dest.Address"
     ws["H1"].font = Font(bold=True, size=14, color="2f75b5")
-    for col in ["A", "B", "C", "D", "E", "F", "G", "H"]:
+    for col in ["B", "C", "D", "E", "F", "G", "H"]:
         ws.column_dimensions[col].width = 25
-
+    ws.column_dimensions["A"].width = 28
     row_num = 2
     for rule in h_dict:
         ws[f'A{row_num}'].value = h_dict[rule][2]
@@ -123,12 +126,19 @@ def create_wb_out(h_dict):
         ws[f'H{row_num}'].value = h_dict[rule][3][3]
         row_num += 1
 
+    for row in ws.iter_rows(min_row=2):
+        if row[0].value:
+            row[0].font = Font(color="33b743", bold=True, size=14)
+            for cell in row:
+                cell.fill = PatternFill(start_color="ebf1de", end_color="ebf1de", fill_type="solid")
+        else:
+            row[0].font = Font(color="ac0000")
     return wb_out
 
 
 def m2_create_output(file):
 
-    out_list = ["set tag App-ID color color23"]
+    out_list = ["set tag App-ID color color23\n"]
     remove_chars = ",'{}"  # Because the apps and ports are Python sets in excel, they show as {"one", "two, "three"}
     # need to remove those characters so you just get a string of: one two three
 
