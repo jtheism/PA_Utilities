@@ -20,7 +20,7 @@ def mode_1_import():
     try:
         with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
                                   title="Select Security Rules CSV exported from Palo Alto firewall.")) as rules_file:
-        # with open("C:\\Users\\Jason\\Desktop\\policies.csv") as rules_file:
+            # with open("C:\\Users\\Jason\\Desktop\\policies.csv") as rules_file:
 
             csv_ruleset = csv.reader(rules_file, delimiter=',')
             # Test for input
@@ -43,7 +43,7 @@ def mode_1_import():
     try:
         with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
                                   title="Select Log File CSV exported from Palo Alto firewall.")) as log_file:
-        # with open("C:\\Users\\Jason\\Desktop\\log2.csv") as log_file:
+            # with open("C:\\Users\\Jason\\Desktop\\log2.csv") as log_file:
             # parse logs to get apps and dest_ports for each rule and mark rule as hit
             csv_logs = csv.reader(log_file, delimiter=',')
             ignored_apps = ["insufficient-data", "unknown-udp", "unknown-tcp", "incomplete"]
