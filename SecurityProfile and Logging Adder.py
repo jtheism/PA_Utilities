@@ -36,7 +36,7 @@ while xml_input not in ["1", "2"]:
     xml_input = input("Select input source:\n\t1: Import .xml config file.   2: Connect to firewall API\n")
     if xml_input == "1":
         tree = ElementTree.parse(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
-                                                    title="Select Palo Alto .xml Config File."))
+                                                 title="Select Palo Alto .xml Config File."))
         # tree = ElementTree.parse(input("Enter file path:\n"))
         break
     elif xml_input == "2":
