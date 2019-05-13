@@ -174,17 +174,18 @@ if mode == "1":
     hits_dict = mode_1_import()
     # rules_dict = mode_1_parse_rules(csv_rules)
     # Test Output
-    for r in hits_dict:
-        print(f'Name: {r}\n\tApps: {hits_dict[r][0]}\n\tPorts: {hits_dict[r][1]}\n\tRule hit: {hits_dict[r][2]} '
-              f'\n\t\tSrc.Zone: {hits_dict[r][3][0]}, Src.Addr: {hits_dict[r][3][1]}, '
-              f'Dest.Zone: {hits_dict[r][3][2]}, Dest.Addr: {hits_dict[r][3][3]}')
+    # for r in hits_dict:
+    #     print(f'Name: {r}\n\tApps: {hits_dict[r][0]}\n\tPorts: {hits_dict[r][1]}\n\tRule hit: {hits_dict[r][2]} '
+    #           f'\n\t\tSrc.Zone: {hits_dict[r][3][0]}, Src.Addr: {hits_dict[r][3][1]}, '
+    #           f'Dest.Zone: {hits_dict[r][3][2]}, Dest.Addr: {hits_dict[r][3][3]}')
 
     # Create workbook
     workbook_out = create_wb_out(hits_dict)
     # Save workbook
     try:
-        workbook_out.save(asksaveasfilename(initialdir=os.path.expanduser("~/Desktop"), title="Create App-ID workbook:",
-                                            defaultextension='.xlsx', filetypes=[('Excel File', '.xlsx')]))
+        workbook_out.save(asksaveasfilename(parent=root, initialdir=os.path.expanduser("~/Desktop"),
+                                            title="Create App-ID workbook:", defaultextension='.xlsx',
+                                            filetypes=[('Excel File', '.xlsx')]))
     except FileNotFoundError:
         exit()
 
