@@ -1,4 +1,5 @@
 import csv
+import datetime
 import os
 import openpyxl
 from openpyxl.styles import Font, PatternFill
@@ -8,6 +9,7 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename, Tk
 root = Tk()
 root.withdraw()
 root.focus_force()
+now = datetime.datetime.now().strftime("%m/%d/%Y")
 
 
 def mode_1_import():
@@ -16,6 +18,7 @@ def mode_1_import():
     :return: dictionary {rulename: [set(apps), set(dest_port/protocol), hit value(T/F)]
     """
     rules_dict = None  # Eliminates Pycharm Error
+    unk_tu_dict = {}  # dict for unknown tcp and udp log entries
     # parse ruleset and get rule names and details
     try:
         with open(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
@@ -30,9 +33,10 @@ def mode_1_import():
             #     row += 1
             rules_dict = {}
             for crow in csv_ruleset:
-                # Values are:
-                # set(apps), set(ports), boolean of rule hit in logs, [src zone, src add, dst zone, dest add]
-                rules_dict[crow[1]] = [set(), set(), False, [crow[4], crow[5], crow[8], crow[9]]]
+                # Values are:       [0], [1], [2], [4] are taken from logs, [3] from policies
+                # [0]set(apps), [1]set(ports), [2]boolean of rule hit in logs,
+                # [3][src zone, src add, dst zone, dest add], [4]boolean: unknown tcp or udp found
+                rules_dict[crow[1]] = [set(), set(), False, [crow[4], crow[5], crow[8], crow[9]], False]
             # for k in rules_dict:
             #     print(f'key: {k}\t Value: {rules_dict[k]}')
     except FileNotFoundError:
@@ -51,6 +55,7 @@ def mode_1_import():
                 # ignore these apps (incomplete, insufficient-data, unknown-udp, unknown-tcp)
                 if lrow[14] not in ignored_apps:
                     try:
+                        # lrow[11] is the rule name
                         rules_dict[lrow[11]][2] = True
                     except KeyError:
                         pass
@@ -59,18 +64,46 @@ def mode_1_import():
                     except KeyError:
                         pass
                     try:
-                        rules_dict[lrow[11]][1].add(f'{lrow[25]}/{lrow[29]}')
+                        # add tcp or udp and port
+                        # rules_dict[lrow[11]][1].add(f'{lrow[14]}:{lrow[25]}/{lrow[29]}')
+                        rules_dict[lrow[11]][1].add((lrow[14], lrow[25], lrow[29]))
                     except KeyError:
                         pass
-                else:
+                elif lrow[14] in ["unknown-udp", "unknown-tcp"]:
+                    rules_dict[lrow[11]][4] = True
                     try:
                         rules_dict[lrow[11]][2] = True
                     except KeyError:
                         pass
                     try:
-                        rules_dict[lrow[11]][1].add(f'{lrow[25]}/{lrow[29]}')
+                        # rules_dict[lrow[11]][1].add(f'{lrow[14]}:{lrow[25]}/{lrow[29]}')
+                        rules_dict[lrow[11]][1].add((lrow[14], lrow[25], lrow[29]))
                     except KeyError:
                         pass
+                    # For unknown dict
+                    # key = rule name
+                    # value = list [{port and tcp/udp pair: count}, ]
+                    unk_tu_dict.setdefault(lrow[11])  # creates rule name dict key
+                    # print(unk_tu_dict)
+                    # print(unk_tu_dict[lrow[11]])
+                    if unk_tu_dict[lrow[11]] is None:
+                        unk_tu_dict[lrow[11]] = {}
+                        unk_tu_dict[lrow[11]].setdefault(f'{lrow[25]}/{lrow[29]}')
+                        unk_tu_dict[lrow[11]][f'{lrow[25]}/{lrow[29]}'] = 1
+                    else:
+                        unk_tu_dict[lrow[11]].setdefault(f'{lrow[25]}/{lrow[29]}')
+                        unk_tu_dict[lrow[11]][f'{lrow[25]}/{lrow[29]}'] += 1
+
+                else:
+                    # try:
+                    #     rules_dict[lrow[11]][2] = True
+                    # except KeyError:
+                    #     pass
+                    # try:
+                    #     rules_dict[lrow[11]][1].add(f'{lrow[14]}:{lrow[25]}/{lrow[29]}')
+                    # except KeyError:
+                    #     pass
+                    pass
     except FileNotFoundError:
         print("Process cancelled.")
         exit()
@@ -80,13 +113,14 @@ def mode_1_import():
     #     pass
     del rules_dict["intrazone-default"]
     del rules_dict["interzone-default"]
-    return rules_dict
+    return rules_dict, unk_tu_dict
 
 
-def create_wb_out(h_dict):
+def create_wb_out(h_dict, u_dict):
     """
 
     :param h_dict: h_dict produced by mode1_import function
+    :param u_dict: u_dict produced by mode1_import function
     :return: workbook
     """
 
@@ -109,7 +143,9 @@ def create_wb_out(h_dict):
     ws["G1"].font = Font(bold=True, size=14, color="2f75b5")
     ws["H1"] = "Dest.Address"
     ws["H1"].font = Font(bold=True, size=14, color="2f75b5")
-    for col in ["B", "C", "D", "E", "F", "G", "H"]:
+    ws["I1"] = "Unknown TCP/UDP Found"
+    ws["I1"].font = Font(bold=True, size=14, color="2f75b5")
+    for col in ["B", "C", "D", "E", "F", "G", "H", "I"]:
         ws.column_dimensions[col].width = 25
     ws.column_dimensions["A"].width = 28
     row_num = 2
@@ -119,11 +155,16 @@ def create_wb_out(h_dict):
         if str(h_dict[rule][0]) != "set()":
             ws[f'C{row_num}'].value = str(h_dict[rule][0])
         if str(h_dict[rule][1]) != "set()":
-            ws[f'D{row_num}'].value = str(h_dict[rule][1])
+            # ws[f'D{row_num}'].value = str(h_dict[rule][1])
+            temp_port_set = set()
+            for port_tup in h_dict[rule][1]:
+                temp_port_set.add(f'{port_tup[0]}: {port_tup[1]}/{port_tup[2]}')
+                ws[f'D{row_num}'].value = str(temp_port_set)
         ws[f'E{row_num}'].value = h_dict[rule][3][0]
         ws[f'F{row_num}'].value = h_dict[rule][3][1]
         ws[f'G{row_num}'].value = h_dict[rule][3][2]
         ws[f'H{row_num}'].value = h_dict[rule][3][3]
+        ws[f'I{row_num}'].value = h_dict[rule][4]
         row_num += 1
 
     for row in ws.iter_rows(min_row=2):
@@ -133,6 +174,23 @@ def create_wb_out(h_dict):
                 cell.fill = PatternFill(start_color="ebf1de", end_color="ebf1de", fill_type="solid")
         else:
             row[0].font = Font(color="ac0000")
+    ws_unknowns = wb_out.create_sheet("Unknown TCP-UDP")
+    ws_unknowns["A1"] = "Rule Name"
+    ws_unknowns["A1"].font = Font(bold=True, size=14, color="2f75b5")
+    ws_unknowns["B1"] = "Port"
+    ws_unknowns["B1"].font = Font(bold=True, size=14, color="2f75b5")
+    ws_unknowns["C1"] = "Hit Count"
+    ws_unknowns["C1"].font = Font(bold=True, size=14, color="2f75b5")
+    for col in ["A", "B", "C"]:
+        ws_unknowns.column_dimensions[col].width = 30
+    nrow = 2
+    for rulename in u_dict:
+        for pair in u_dict[rulename]:
+            # for k in u_dict[rulename][pair]:
+            ws_unknowns[f'A{nrow}'].value = rulename
+            ws_unknowns[f'B{nrow}'].value = pair
+            ws_unknowns[f'C{nrow}'].value = u_dict[rulename][pair]
+            nrow += 1
     return wb_out
 
 
@@ -153,8 +211,10 @@ def m2_create_output(file):
                 apps = apps.replace(ch, "")
             out_list.append(f'copy rulebase security rules "{orig_name}" to "{rule_name}"\n')
             out_list.append(f'move rulebase security rules "{rule_name}" before "{orig_name}"\n')
-            out_list.append(f'set rulebase security rules "{rule_name}" application [ {apps} ] '
-                            f'service application-default tag App-ID\n')
+            out_list.append(f'delete rulebase security rules "{rule_name}" application\n')
+            out_list.append(f'delete rulebase security rules "{rule_name}" service\n')
+            out_list.append(f'set rulebase security rules "{rule_name}" description "Added on {now}." application '
+                            f'[ {apps} ] service application-default tag App-ID\n')
     return out_list
 
 
@@ -171,7 +231,7 @@ while True:
 # 1:
 # read in csv file of ruleset
 if mode == "1":
-    hits_dict = mode_1_import()
+    hits_dict, unknown_dict = mode_1_import()
     # rules_dict = mode_1_parse_rules(csv_rules)
     # Test Output
     # for r in hits_dict:
@@ -180,7 +240,7 @@ if mode == "1":
     #           f'Dest.Zone: {hits_dict[r][3][2]}, Dest.Addr: {hits_dict[r][3][3]}')
 
     # Create workbook
-    workbook_out = create_wb_out(hits_dict)
+    workbook_out = create_wb_out(hits_dict, unknown_dict)
     # Save workbook
     try:
         workbook_out.save(asksaveasfilename(parent=root, initialdir=os.path.expanduser("~/Desktop"),
