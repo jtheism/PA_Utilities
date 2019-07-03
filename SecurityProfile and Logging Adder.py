@@ -64,7 +64,7 @@ if choice_s == "y":
         for rules in elem:
             for entry in rules:
                 sec_set.append(entry.attrib["name"])
-                # print(entry.attrib["name"])
+                print(entry.attrib["name"])
 if choice_l == "y":
     logging_name = input("Enter log forwarding group name:\n")
     log_set = []

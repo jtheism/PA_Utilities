@@ -6,6 +6,7 @@ window.withdraw()
 window.focus_force()
 
 
+# tree = Elem.parse("C:\\Users\\Jason\\Desktop\\bi-dir-test.xml")
 tree = Elem.parse(askopenfilename(initialdir=os.path.expanduser("~/Desktop"),
                                   title="Select Palo Alto xml configuration file."))
 # root_tree = tree.getroot()
@@ -41,7 +42,7 @@ for elem in tree.iter(tag="nat"):
                     if static.tag == "static-ip":
                         nat_dict[entry.attrib["name"]]["translated"] = static.find("translated-address").text
                         # print(nat_dict[entry.attrib["name"]]["translated"])
-                        print(f'{nat_policy_count}')
+                        # print(f'{nat_policy_count}')
                         nat_dict[entry.attrib["name"]]["bi_d"] = static.find("bi-directional").text
                         # print(nat_dict[entry.attrib["name"]]["bi_d"])
             except (TypeError, AttributeError):
@@ -61,9 +62,11 @@ for rule in nat_dict:
         set_cmds_list.append(f'set rulebase nat rules "{rule[:55]}-In" from "{nat_dict[rule]["to"]}" to '
                              f'"{nat_dict[rule]["to"]}" source any destination "{nat_dict[rule]["translated"]}" service'
                              f' any destination-translation translated-address "{nat_dict[rule]["source"]}"\n')
-        set_cmds_list.append(f'move rulebase nat rules "{rule[:55]}-In" before "{rule}"\n')
-        set_cmds_list.append(f'rename rulebase nat rules "{rule}" to "{rule[:55]}-Out"\n\n')
 
+        set_cmds_list.append(f'move rulebase nat rules "{rule[:55]}-In" before "{rule}"\n')
+        set_cmds_list.append(f'rename rulebase nat rules "{rule}" to "{rule[:55]}-Out"\n')
+        set_cmds_list.append(f'set rulebase nat rules "{rule[:55]}-Out" source-translation static-ip '
+                             f'bi-directional no\n\n')
 
 print(f'\nTotal NAT policies processed: {nat_policy_count}.')
 print(f'Bi-directional NAT policies split: {bi_dir_nat_count}.\n')

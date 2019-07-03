@@ -20,14 +20,22 @@ text_list = ["set deviceconfig", "set mgt-config", "set network profiles", "set 
 cmds_list = []
 pano_cmds = []
 
-with open("GoldCfgSetCmds", "r") as cmds_file:
-    for line in cmds_file:
-        cmds_list.append(line)
+panos_ver = None
+while panos_ver not in ["1", "2"]:
+    panos_ver = input("Select which PAN-OS version:\n\t1. 8.1\n\t2. 9.0\n")
+
+if panos_ver == "1":
+    with open("V8.1-GoldCfgSetCmds", "r") as cmds_file:
+        for line in cmds_file:
+            cmds_list.append(line)
+elif panos_ver == "2":
+    with open("V9.0-GoldCfgSetCmds", "r") as cmds_file:
+        for line in cmds_file:
+            cmds_list.append(line)
 
 
 is_panorama = input("Is this for Panorama? (y or n)\n").lower()
 # print(is_panorama)
-
 
 
 if is_panorama == "y":
@@ -41,6 +49,7 @@ if is_panorama == "y":
                 pano_cmds.append(line.replace("*devgrp", devicegroup_name))
             else:
                 pano_cmds.append(line)
+
 
 while True:
     try:
@@ -57,6 +66,7 @@ cmds_out = [line.replace("alarm-rate a_a_rate activate-rate a_a_rate maximal-rat
 
 
 if is_panorama == "y":
+    # swaps out syntax where needed for panorama commands
     pano_dict = {"set deviceconfig": f"set template {template_name} config deviceconfig",
                  "set mgt-config": f"set template {template_name} config mgt-config",
                  "set network profiles": f"set template {template_name} config network profiles",
@@ -72,6 +82,7 @@ if is_panorama == "y":
                                                               "default-security-rules rules",
                  "set rulebase security rules": f"set device-group {devicegroup_name} pre-rulebase security rules"}
     for line in cmds_out:
+        # print(line)
         for text in text_list:
             if text in line:
                 pano_cmds.append(line.replace(text, pano_dict[text]))

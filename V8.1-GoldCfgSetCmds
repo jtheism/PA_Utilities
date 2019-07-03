@@ -148,6 +148,7 @@ set profiles spyware Anti-Spyware-1 rules simple-informational severity informat
 set profiles spyware Anti-Spyware-1 rules simple-low severity low threat-name any category any packet-capture disable action default
 set profiles spyware Anti-Spyware-1 botnet-domains sinkhole ipv4-address pan-sinkhole-default-ip ipv6-address ::1
 set profiles spyware Anti-Spyware-1 botnet-domains lists default-paloalto-dns action sinkhole
+set profiles spyware Anti-Spyware-1 botnet-domains lists default-paloalto-dns packet-capture single-packet
 set profiles vulnerability Vulnerabilities-1 rules simple-client-critical vendor-id any severity critical cve any threat-name any host client category any packet-capture single-packet action reset-both
 set profiles vulnerability Vulnerabilities-1 rules simple-client-high vendor-id any severity high cve any threat-name any host client category any packet-capture single-packet action reset-both
 set profiles vulnerability Vulnerabilities-1 rules simple-client-medium vendor-id any severity medium cve any threat-name any host client category any packet-capture single-packet action reset-both
