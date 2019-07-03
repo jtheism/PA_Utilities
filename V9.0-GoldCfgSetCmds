@@ -34,105 +34,105 @@ set mgt-config password-complexity block-username-inclusion yes
 set mgt-config password-complexity minimum-numeric-letters 1
 set mgt-config password-complexity password-change
 set mgt-config password-complexity minimum-special-characters 1
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood tcp-syn enable yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood tcp-syn syn-cookies alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood udp enable yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood udp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood icmp enable yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood icmp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood other-ip enable yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood other-ip red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood icmpv6 enable yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" flood icmpv6 red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8001 action block-ip track-by source-and-destination
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8001 action block-ip duration 300
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8001 interval 2
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8001 threshold 100
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8002 action block-ip track-by source-and-destination
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8002 action block-ip duration 300
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8002 interval 10
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8002 threshold 100
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8003 action block-ip track-by source-and-destination
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8003 action block-ip duration 300
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8003 interval 2
-set network profiles zone-protection-profile "Untrust-Zone-Protection" scan 8003 threshold 100
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-ip-spoof yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" description "Untrust Zone Protection"
-set network profiles zone-protection-profile "Untrust-Zone-Protection" suppress-icmp-timeexceeded yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" suppress-icmp-needfrag yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-icmp-ping-zero-id yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-icmp-large-packet yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-ip-frag yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-overlapping-tcp-segment-mismatch yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-unknown-option yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-malformed-option yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" ipv6 anycast-source yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" ipv6 needless-fragment-hdr yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" ipv6 options-invalid-ipv6-discard yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-strict-source-routing yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-security yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-loose-source-routing yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-stream-id yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-timestamp yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-record-route yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-tcp-split-handshake yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" remove-tcp-timestamp yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-icmp-frag yes
-set network profiles zone-protection-profile "Untrust-Zone-Protection" discard-icmp-error yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood tcp-syn enable yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood tcp-syn syn-cookies alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood udp enable yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood udp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood icmp enable yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood icmp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood other-ip enable yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood other-ip red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood icmpv6 enable yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" flood icmpv6 red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8001 action alert
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8001 interval 2
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8001 threshold 100
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8002 action alert
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8002 interval 10
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8002 threshold 100
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8003 action alert
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8003 interval 2
-set network profiles zone-protection-profile "Trust-Zone-Protection" scan 8003 threshold 100
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-ip-spoof yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" description "Trust Zone Protection"
-set network profiles zone-protection-profile "Trust-Zone-Protection" suppress-icmp-timeexceeded yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" suppress-icmp-needfrag yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-icmp-ping-zero-id yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-icmp-large-packet yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-ip-frag yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-overlapping-tcp-segment-mismatch yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-unknown-option yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-malformed-option yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" ipv6 anycast-source yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" ipv6 needless-fragment-hdr yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" ipv6 options-invalid-ipv6-discard yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-strict-source-routing yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-security yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-loose-source-routing yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-stream-id yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-timestamp yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-record-route yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-tcp-split-handshake yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" remove-tcp-timestamp yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-icmp-frag yes
-set network profiles zone-protection-profile "Trust-Zone-Protection" discard-icmp-error yes
-set zone Trust network layer3 [ ]
-set zone Untrust network layer3 [ ]
-set zone Trust enable-user-identification yes network zone-protection-profile Trust-Zone-Protection
-set zone Untrust network zone-protection-profile Untrust-Zone-Protection
-set zone Trust network enable-packet-buffer-protection yes
-set zone Untrust network enable-packet-buffer-protection yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood tcp-syn enable yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood tcp-syn syn-cookies alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood udp enable yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood udp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood icmp enable yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood icmp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood other-ip enable yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood other-ip red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood icmpv6 enable yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" flood icmpv6 red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8001 action block-ip track-by source-and-destination
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8001 action block-ip duration 300
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8001 interval 2
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8001 threshold 100
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8002 action block-ip track-by source-and-destination
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8002 action block-ip duration 300
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8002 interval 10
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8002 threshold 100
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8003 action block-ip track-by source-and-destination
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8003 action block-ip duration 300
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8003 interval 2
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" scan 8003 threshold 100
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-ip-spoof yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" description "**Untrust Zone Protection"
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" suppress-icmp-timeexceeded yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" suppress-icmp-needfrag yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-icmp-ping-zero-id yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-icmp-large-packet yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-ip-frag yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-overlapping-tcp-segment-mismatch yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-unknown-option yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-malformed-option yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" ipv6 anycast-source yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" ipv6 needless-fragment-hdr yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" ipv6 options-invalid-ipv6-discard yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-strict-source-routing yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-security yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-loose-source-routing yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-stream-id yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-timestamp yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-record-route yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-tcp-split-handshake yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" remove-tcp-timestamp yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-icmp-frag yes
+set network profiles zone-protection-profile "**Untrust-Zone-Protection" discard-icmp-error yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood tcp-syn enable yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood tcp-syn syn-cookies alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood udp enable yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood udp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood icmp enable yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood icmp red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood other-ip enable yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood other-ip red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood icmpv6 enable yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" flood icmpv6 red alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8001 action alert
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8001 interval 2
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8001 threshold 100
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8002 action alert
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8002 interval 10
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8002 threshold 100
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8003 action alert
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8003 interval 2
+set network profiles zone-protection-profile "**Trust-Zone-Protection" scan 8003 threshold 100
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-ip-spoof yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" description "**Trust Zone Protection"
+set network profiles zone-protection-profile "**Trust-Zone-Protection" suppress-icmp-timeexceeded yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" suppress-icmp-needfrag yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-icmp-ping-zero-id yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-icmp-large-packet yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-ip-frag yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-overlapping-tcp-segment-mismatch yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-unknown-option yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-malformed-option yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" ipv6 anycast-source yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" ipv6 needless-fragment-hdr yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" ipv6 options-invalid-ipv6-discard yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-strict-source-routing yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-security yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-loose-source-routing yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-stream-id yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-timestamp yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-record-route yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-tcp-split-handshake yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" remove-tcp-timestamp yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-icmp-frag yes
+set network profiles zone-protection-profile "**Trust-Zone-Protection" discard-icmp-error yes
+set zone **Trust network layer3 [ ]
+set zone **Untrust network layer3 [ ]
+set zone **Trust enable-user-identification yes network zone-protection-profile **Trust-Zone-Protection
+set zone **Untrust network zone-protection-profile **Untrust-Zone-Protection
+set zone **Trust network enable-packet-buffer-protection yes
+set zone **Untrust network enable-packet-buffer-protection yes
 set tag REVIEW color color6
 set tag Inbound color color1
 set tag Outbound color color13
 set tag VPN color color4
-set tag Trust color color13
-set tag Untrust color color1
+set tag **Trust color color13
+set tag **Untrust color color1
 set tag Deny color color1
 set tag Drop color color1
 set tag DMZ color color15
@@ -147,12 +147,12 @@ set profiles spyware Anti-Spyware-1 rules simple-high severity high threat-name 
 set profiles spyware Anti-Spyware-1 rules simple-medium severity medium threat-name any category any packet-capture single-packet action reset-both
 set profiles spyware Anti-Spyware-1 rules simple-informational severity informational threat-name any category any packet-capture disable action default
 set profiles spyware Anti-Spyware-1 rules simple-low severity low threat-name any category any packet-capture disable action default
+set profiles spyware Anti-Spyware-1 botnet-domains sinkhole ipv4-address pan-sinkhole-default-ip
+set profiles spyware Anti-Spyware-1 botnet-domains sinkhole ipv6-address ::1
 set profiles spyware Anti-Spyware-1 botnet-domains lists default-paloalto-dns packet-capture single-packet
 set profiles spyware Anti-Spyware-1 botnet-domains lists default-paloalto-dns action sinkhole
 set profiles spyware Anti-Spyware-1 botnet-domains lists default-paloalto-cloud packet-capture single-packet
 set profiles spyware Anti-Spyware-1 botnet-domains lists default-paloalto-cloud action sinkhole
-set profiles spyware Anti-Spyware-1 botnet-domains sinkhole ipv4-address pan-sinkhole-default-ip
-set profiles spyware Anti-Spyware-1 botnet-domains sinkhole ipv6-address ::1
 set profiles vulnerability Vulnerabilities-1 rules simple-client-critical vendor-id any severity critical cve any threat-name any host client category any packet-capture single-packet action reset-both
 set profiles vulnerability Vulnerabilities-1 rules simple-client-high vendor-id any severity high cve any threat-name any host client category any packet-capture single-packet action reset-both
 set profiles vulnerability Vulnerabilities-1 rules simple-client-medium vendor-id any severity medium cve any threat-name any host client category any packet-capture single-packet action reset-both
@@ -167,7 +167,6 @@ set profiles file-blocking "File Transfer Logging" rules "Alert All" application
 set profiles wildfire-analysis Wildfire-1 rules "Forward All" application any file-type any direction both analysis public-cloud
 set profiles url-filtering "General URL Filter" alert [ abortion abused-drugs alcohol-and-tobacco auctions business-and-economy computer-and-internet-info content-delivery-networks dating educational-institutions entertainment-and-arts financial-services gambling games government health-and-medicine home-and-garden hunting-and-fishing insufficient-content internet-communications-and-telephony internet-portals job-search legal military motor-vehicles music news not-resolved nudity online-storage-and-backup personal-sites-and-blogs philosophy-and-political-advocacy questionable real-estate recreation-and-hobbies reference-and-research religion search-engines sex-education shareware-and-freeware shopping social-networking society sports stock-advice-and-tools streaming-media swimsuits-and-intimate-apparel training-and-tools translation travel weapons web-advertisements web-based-email web-hosting ]
 set profiles url-filtering "General URL Filter" block [ adult command-and-control copyright-infringement dynamic-dns extremism hacking malware parked peer-to-peer phishing private-ip-addresses proxy-avoidance-and-anonymizers unknown ]
-set profiles url-filtering "General URL Filter" action block
 set profiles url-filtering "General URL Filter" credential-enforcement alert [ abortion abused-drugs alcohol-and-tobacco auctions business-and-economy computer-and-internet-info content-delivery-networks dating educational-institutions entertainment-and-arts financial-services gambling games government health-and-medicine home-and-garden hunting-and-fishing insufficient-content internet-communications-and-telephony internet-portals job-search legal military motor-vehicles music news not-resolved nudity online-storage-and-backup personal-sites-and-blogs philosophy-and-political-advocacy questionable real-estate recreation-and-hobbies reference-and-research religion search-engines sex-education shareware-and-freeware shopping social-networking society sports stock-advice-and-tools streaming-media swimsuits-and-intimate-apparel training-and-tools translation travel weapons web-advertisements web-based-email web-hosting ]
 set profiles url-filtering "General URL Filter" credential-enforcement block [ adult command-and-control copyright-infringement dynamic-dns extremism hacking malware parked peer-to-peer phishing private-ip-addresses proxy-avoidance-and-anonymizers unknown ]
 set profiles url-filtering "General URL Filter" credential-enforcement log-severity medium mode ip-user
@@ -211,7 +210,7 @@ set rulebase default-security-rules rules intrazone-default action allow log-end
 set rulebase default-security-rules rules interzone-default log-end yes action deny log-setting "Log Forwarding"
 set rulebase security rules "Inbound EDL Drop" profile-setting group "Threat Prevention Group"
 set rulebase security rules "Inbound EDL Drop" to any
-set rulebase security rules "Inbound EDL Drop" from Untrust
+set rulebase security rules "Inbound EDL Drop" from **Untrust
 set rulebase security rules "Inbound EDL Drop" source [ BruteForceBlocker "Dshield Block List" "Emerging Threats Known Compromised Hosts" "Emerging Threats TOR" "Malware Domain List" Palo-Alto-Networks-High-Risk-IPs Palo-Alto-Networks-Known-Malicious-IPs Palo-Alto-Networks-Bulletproof-IPs "Spamhaus DROP" "Spamhaus EDROP" "SSL Abuse List" "Zeus Blocklist" ]
 set rulebase security rules "Inbound EDL Drop" destination any
 set rulebase security rules "Inbound EDL Drop" source-user any
@@ -224,7 +223,7 @@ set rulebase security rules "Inbound EDL Drop" action drop
 set rulebase security rules "Inbound EDL Drop" description "This rule drops all traffic inbound from EDL IP Addresses"
 set rulebase security rules "Inbound EDL Drop" log-setting "Log Forwarding"
 set rulebase security rules "Outbound EDL Deny" profile-setting group "Threat Prevention Group"
-set rulebase security rules "Outbound EDL Deny" to Untrust
+set rulebase security rules "Outbound EDL Deny" to **Untrust
 set rulebase security rules "Outbound EDL Deny" from any
 set rulebase security rules "Outbound EDL Deny" source any
 set rulebase security rules "Outbound EDL Deny" destination [ BruteForceBlocker "Dshield Block List" "Emerging Threats Known Compromised Hosts" "Emerging Threats TOR" "Malware Domain List" Palo-Alto-Networks-High-Risk-IPs Palo-Alto-Networks-Known-Malicious-IPs Palo-Alto-Networks-Bulletproof-IPs "Spamhaus DROP" "Spamhaus EDROP" "SSL Abuse List" "Zeus Blocklist" ]
@@ -238,7 +237,7 @@ set rulebase security rules "Outbound EDL Deny" description "This rule denies tr
 set rulebase security rules "Outbound EDL Deny" log-setting "Log Forwarding"
 set rulebase security rules "Outbound EDL Deny" tag [ Outbound Deny ]
 set rulebase security rules "Outbound DNS Sinkhole Deny" profile-setting group "Threat Prevention Group"
-set rulebase security rules "Outbound DNS Sinkhole Deny" to Untrust
+set rulebase security rules "Outbound DNS Sinkhole Deny" to **Untrust
 set rulebase security rules "Outbound DNS Sinkhole Deny" from any
 set rulebase security rules "Outbound DNS Sinkhole Deny" source any
 set rulebase security rules "Outbound DNS Sinkhole Deny" destination PANW-DNS-Sinkhole
@@ -252,8 +251,8 @@ set rulebase security rules "Outbound DNS Sinkhole Deny" description "This rule 
 set rulebase security rules "Outbound DNS Sinkhole Deny" log-setting "Log Forwarding"
 set rulebase security rules "Outbound DNS Sinkhole Deny" tag [ Outbound Deny ]
 set rulebase security rules "Outbound Unsanctioned Apps Deny" profile-setting group "Threat Prevention Group"
-set rulebase security rules "Outbound Unsanctioned Apps Deny" to Untrust
-set rulebase security rules "Outbound Unsanctioned Apps Deny" from Trust
+set rulebase security rules "Outbound Unsanctioned Apps Deny" to **Untrust
+set rulebase security rules "Outbound Unsanctioned Apps Deny" from **Trust
 set rulebase security rules "Outbound Unsanctioned Apps Deny" source any
 set rulebase security rules "Outbound Unsanctioned Apps Deny" destination any
 set rulebase security rules "Outbound Unsanctioned Apps Deny" source-user any

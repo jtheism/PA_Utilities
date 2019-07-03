@@ -24,14 +24,29 @@ panos_ver = None
 while panos_ver not in ["1", "2"]:
     panos_ver = input("Select which PAN-OS version:\n\t1. 8.1\n\t2. 9.0\n")
 
+u_zone = input(f'Enter desired outside zone name:\n')
+t_zone = input(f'Enter desired inside zone name:\n')
+
 if panos_ver == "1":
     with open("V8.1-GoldCfgSetCmds", "r") as cmds_file:
         for line in cmds_file:
-            cmds_list.append(line)
+            if "**Untrust" in line:
+                cmds_list.append(line.replace("**Untrust", u_zone))
+            elif "**Trust" in line:
+                cmds_list.append(line.replace("**Trust", t_zone))
+            else:
+                cmds_list.append(line)
+
+
 elif panos_ver == "2":
     with open("V9.0-GoldCfgSetCmds", "r") as cmds_file:
         for line in cmds_file:
-            cmds_list.append(line)
+            if "**Untrust" in line:
+                cmds_list.append(line.replace("**Untrust", u_zone))
+            elif "**Trust" in line:
+                cmds_list.append(line.replace("**Trust", t_zone))
+            else:
+                cmds_list.append(line)
 
 
 is_panorama = input("Is this for Panorama? (y or n)\n").lower()
