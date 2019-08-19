@@ -11,15 +11,15 @@ set deviceconfig setting session packet-buffer-protection-alert 90
 set deviceconfig setting session packet-buffer-protection-activate 97
 set deviceconfig setting session packet-buffer-protection-block-hold-time 60
 set deviceconfig setting session packet-buffer-protection-block-duration-time 3600
-set deviceconfig setting wildfire file-size-limit MacOSX size-limit 1
-set deviceconfig setting wildfire file-size-limit apk size-limit 30
+set deviceconfig setting wildfire file-size-limit MacOSX size-limit 10
+set deviceconfig setting wildfire file-size-limit apk size-limit 10
 set deviceconfig setting wildfire file-size-limit flash size-limit 5
 set deviceconfig setting wildfire file-size-limit jar size-limit 5
-set deviceconfig setting wildfire file-size-limit ms-office size-limit 2000
-set deviceconfig setting wildfire file-size-limit pdf size-limit 1000
-set deviceconfig setting wildfire file-size-limit pe size-limit 10
-set deviceconfig setting wildfire file-size-limit archive size-limit 10
-set deviceconfig setting wildfire file-size-limit linux size-limit 2
+set deviceconfig setting wildfire file-size-limit ms-office size-limit 16384
+set deviceconfig setting wildfire file-size-limit pdf size-limit 3072
+set deviceconfig setting wildfire file-size-limit pe size-limit 16
+set deviceconfig setting wildfire file-size-limit archive size-limit 50
+set deviceconfig setting wildfire file-size-limit linux size-limit 50
 set deviceconfig setting wildfire report-grayware-file yes
 set deviceconfig setting wildfire report-benign-file yes
 set deviceconfig system update-schedule threats recurring hourly at 5 action download-and-install
