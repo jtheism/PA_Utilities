@@ -15,22 +15,22 @@ type1_dict = {
 
 
 type2_dict = {
-        "tags": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/tag to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/tag mode **mode",
-        "interfaces": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/network/interface to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/interface mode **mode",
-        "routers": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/network/virtual-router to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/virtual-router mode **mode",
-        "services": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service mode **mode",
-        "svc_groups": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service-group mode **mode",
-        "addresses": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address mode merge",
-        "addr_groups": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address-group mode **mode",
-        "sec_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/security/rules mode **mode",
-        "sec_rules>post-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/security/rules mode **mode",
-        "nat_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules mode **mode",
-        "nat_rules>post-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/nat/rules mode **mode"
+        "tags": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/tag to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/tag mode **mode",
+        "interfaces": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/network/interface to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/interface mode **mode",
+        "routers": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/network/virtual-router to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/virtual-router mode **mode",
+        "services": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service mode **mode",
+        "svc_groups": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service-group mode **mode",
+        "addresses": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address mode merge",
+        "addr_groups": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address-group mode **mode",
+        "sec_rules>pre-rulebase": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/security/rules mode **mode",
+        "sec_rules>post-rulebase": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/security/rules mode **mode",
+        "nat_rules>pre-rulebase": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules mode **mode",
+        "nat_rules>post-rulebase": "load config partial from **src_config from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/nat/rules mode **mode"
         }
 
 type3_dict = {
-    "dev-grp": "load config partial from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] mode **mode",
-    "template": "load config partial from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] mode **mode"
+    "dev-grp": "load config partial from running-config.xml from-xpath devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] mode **mode",
+    "template": "load config partial from running-config.xml from-xpath devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] mode **mode"
     }
 
 v9_type1_dict = {
@@ -63,8 +63,8 @@ v9_type2_dict = {
 }
 
 v9_type3_dict = {
-    "dev-grp": "load config partial mode **mode from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] from **src_config" ,
-    "template": "load config partial mode **mode from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] from **src_config"
+    "dev-grp": "load config partial mode **mode from running-config.xml from-xpath devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] from **src_config" ,
+    "template": "load config partial mode **mode from running-config.xml from-xpath devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] from **src_config"
 }
 
 modes = {"1": "merge", "2": "append", "3": "replace"}
