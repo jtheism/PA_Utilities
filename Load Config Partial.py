@@ -24,7 +24,7 @@ type2_dict = {
         "addr_groups": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address-group mode **mode",
         "sec_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/security/rules mode **mode",
         "sec_rules>post-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/security/rules mode **mode",
-        "nat_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules mode **mode",
+        "nat_rules>pre-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules mode **mode",
         "nat_rules>post-rulebase": "load config partial from **src_config from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/nat/rules mode **mode"
         }
 
@@ -32,6 +32,40 @@ type3_dict = {
     "dev-grp": "load config partial from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] mode **mode",
     "template": "load config partial from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] mode **mode"
     }
+
+v9_type1_dict = {
+    "tags": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/tag to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/tag from **src_config" ,
+    "interfaces": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/network/interface to-xpath /config/devices/entry[@name='localhost.localdomain']/network/interface from **src_config" ,
+    "routers": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/network/virtual-router to-xpath /config/devices/entry[@name='localhost.localdomain']/network/virtual-router from **src_config" ,
+    "zones": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/zone to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/zone from **src_config" ,
+    "services": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/service from **src_config" ,
+    "svc_groups": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service-group to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/service-group from **src_config" ,
+    "addresses": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/address from **src_config" ,
+    "addr_groups": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address-group to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/address-group from **src_config" ,
+    "sec_pols": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/rulebase/security/rules from **src_config" ,
+    "nat_pols": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**dst_vsys']/rulebase/nat/rules from **src_config" ,
+    "ike": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/network/ike to-xpath /config/devices/entry[@name='localhost.localdomain']/network/ike from **src_config" ,
+    "ipsec": "load config partial mode **mode from-xpath /config/devices/entry[@name='localhost.localdomain']/network/tunnel/ipsec to-xpath /config/devices/entry[@name='localhost.localdomain']/network/tunnel/ipsec from **src_config"
+}
+
+v9_type2_dict = {
+    "tags": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/tag to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/tag from **src_config" ,
+    "interfaces": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/network/interface to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/interface from **src_config" ,
+    "routers": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/network/virtual-router to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**template']/config/devices/entry[@name='localhost.localdomain']/network/virtual-router from **src_config" ,
+    "services": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service from **src_config" ,
+    "svc_groups": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/service-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/service-group from **src_config" ,
+    "addresses": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address from **src_config" ,
+    "addr_groups": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/address-group to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/address-group from **src_config" ,
+    "sec_rules>pre-rulebase": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/security/rules from **src_config" ,
+    "sec_rules>post-rulebase": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/security/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/security/rules from **src_config" ,
+    "nat_rules>pre-rulebase": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/pre-rulebase/nat/rules from **src_config" ,
+    "nat_rules>post-rulebase": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/vsys/entry[@name='**src_vsys']/rulebase/nat/rules to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dev_grp']/post-rulebase/nat/rules from **src_config"
+}
+
+v9_type3_dict = {
+    "dev-grp": "load config partial mode **mode from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] from **src_config" ,
+    "template": "load config partial mode **mode from running-config.xml from-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] from **src_config"
+}
 
 modes = {"1": "merge", "2": "append", "3": "replace"}
 
@@ -45,6 +79,17 @@ def type_select():
         elif migrate_type not in ["1", "2", "3"]:
             continue
         else:
+            # This section alters the output cmds for PAN-OS ver.9/9.1 by replacing the reference dictionaries
+            while True:
+                panos_ver = input("Select destination PAN-OS version:\n\t1. 8.0 or 8.1\n\t2. 9.0 or 9.1\n")
+                if panos_ver not in ["1", "2"]:
+                    continue
+                else:
+                    if panos_ver == "2":
+                        type1_dict.update(v9_type1_dict)
+                        type2_dict.update(v9_type2_dict)
+                        type3_dict.update(v9_type3_dict)
+                    break
             return migrate_type
 
 

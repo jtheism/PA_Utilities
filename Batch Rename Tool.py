@@ -1,5 +1,5 @@
 # Need to test NAT section
-
+# Need to fix sec policies section, make sure both api and xml file input work in both basic and verbose modes
 
 import os
 from datetime import datetime
@@ -32,8 +32,8 @@ c_types = {1: ["addresses",
            6: ["nat_pols",
                "/config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/rulebase/nat"]}
 
-api_key = input("Enter your API key here:\n")
-firewall_ip = input("Enter firewall Management IP:\n")
+# api_key = input("Enter your API key here:\n")
+# firewall_ip = input("Enter firewall Management IP:\n")
 
 
 change_type = int(input("Enter the number of what you would like to rename.\n1. Addresses  2. Address Groups  "
@@ -55,10 +55,13 @@ while xml_input not in ["1", "2"]:
         tree = ElementTree.parse(input("Enter file path:\n"))
         break
     elif xml_input == "2":
+        api_key = input("Enter your API key here:\n")
+        firewall_ip = input("Enter firewall Management IP:\n")
         data = requests.get(f'https://{firewall_ip}/api/?type=config&action=get&key={api_key}&xpath={xpath}',
                             verify=False)
 
         tree = ElementTree.fromstring(data.content)
+        
         break
     else:
         continue
@@ -86,6 +89,7 @@ if chosen_c_type == 'addresses':
             # print(f'Object: "{address}" >>> Name unchanged.')
             logs.append(f'Object: "{address}" >>> Name unchanged.\n')
 
+    print("\n\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
     for address in addresses:
         if addresses[address][2]:
             print(f'rename address "{address}" to "{addresses[address][2]}"')
@@ -112,6 +116,7 @@ elif chosen_c_type == 'addr_grps':
             # print(f'Object: "{ag}" >>> Name unchanged.')
             logs.append(f'Object: "{ag}" >>> Name unchanged.\n')
 
+    print("\n\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
     for ag in address_groups:
         if address_groups[ag][1]:
             print(f'rename address group "{ag}" to "{address_groups[ag][1]}"')
@@ -138,6 +143,7 @@ if chosen_c_type == 'services':
             # print(f'Object: "{svc}" >>> Name unchanged.')
             logs.append(f'Object: "{svc}" >>> Name unchanged.\n')
 
+    print("\n\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
     for svc in services:
         if services[svc][1]:
             print(f'rename service "{svc}" to "{services[svc][1]}"')
@@ -164,6 +170,7 @@ elif chosen_c_type == 'service_grps':
             # print(f'Object: "{sg}" >>> Name unchanged.')
             logs.append(f'Object: "{sg}" >>> Name unchanged.\n')
 
+    print("\n\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
     for sg in service_groups:
         if service_groups[sg][1]:
             print(f'rename service group "{sg}" to "{service_groups[sg][1]}"')
@@ -216,6 +223,7 @@ elif chosen_c_type == 'sec_pols':
     #     print(f'\t{pol}')
     # print("<<End of Rules>>\n\n")
     for sp in sec_policies:
+        print(sp, sec_policies[sp])
         print(f'Current Rule Name: {sp}\nFrom Zone(s): {sec_policies[sp]["from"]}  >>  To Zone(s): '
               f'{sec_policies[sp]["to"]}\n"Source(s): {sec_policies[sp]["sources"]}  >>  Destination(s): '
               f'{sec_policies[sp]["destinations"]}\nApplications: {sec_policies[sp]["apps"]}    Services: '
@@ -228,14 +236,14 @@ elif chosen_c_type == 'sec_pols':
     for sp in sec_policies:
         if sec_policies[sp]["new_name"]:
             # print(f'Rule name "{sp}" >>> Changing name to "{sec_policies[sp][1]}"')
-            logs.append(f'Rule name "{sp}" >>> Changing name to "{sec_policies[sp][1]}"\n')
+            logs.append(f'Rule name "{sp}" >>> Changing name to "{sec_policies[sp]["new_name"]}"\n')
         else:
             # print(f'Rule name: "{sp}" >>> Name unchanged.')
             logs.append(f'Rule name: "{sp}" >>> Name unchanged.\n')
-    print("\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
+    print("\n\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
     for sp in sec_policies:
         if sec_policies[sp]["new_name"]:
-            print(f'rename rulebase security rules "{sp}" to "{sec_policies[sp][1]}"')
+            print(f'rename rulebase security rules "{sp}" to "{sec_policies[sp]["new_name"]}"')
 
 
 if chosen_c_type == 'nat_pols':  # Test this
@@ -259,9 +267,10 @@ if chosen_c_type == 'nat_pols':  # Test this
             # print(f'Object: "{np}" >>> Name unchanged.')
             logs.append(f'Rule name: "{np}" >>> Name unchanged.\n')
 
+    print("\n\nSet commands. Paste into CLI.\n\nset cli scripting-mode on\nconfigure")
     for np in nat_policies:
         if nat_policies[np][1]:
-            print(f'rename np "{np}" to "{nat_policies[np][1]}"')
+            print(f'rename rulebase nat rules "{np}" to "{nat_policies[np][1]}"')
 
 
 home_path = os.path.expanduser("~\Desktop")
