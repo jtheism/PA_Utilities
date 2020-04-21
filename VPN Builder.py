@@ -4,7 +4,7 @@ from tkinter.filedialog import Tk, asksaveasfilename
 from tkinter import messagebox
 Tk().withdraw()  # Prevents tkinter window from opening
 
-
+#
 p1_crypto_dict = {"encrypt": {1: "des", 2: "3des", 3: "aes-128-cbc", 4: "aes-192-cbc", 5: "aes-256-cbc"},
                   "auth": {1: "sha1", 2: "sha256", 3: "sha384", 4: "sha512", 5: "md5"},
                   "dh": {1: "group1", 2: "group2", 5: "group5", 14: "group14", 19: "group19", 20: "group20"},
