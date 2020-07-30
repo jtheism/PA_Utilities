@@ -607,6 +607,32 @@ def sec_pols(remote_n, rem_zone, local_n):
             for net in local_nets:
                 print(net)
             print()
+    if not remote_n:
+        remote_nets = []
+        while True:
+            remote_net = input("Enter a remote network and hit enter. Enter \"d\" to delete a network. "
+                               "Press Enter without input to finish.\n")
+            if remote_net == "":
+                break
+            elif remote_net.lower() == "d":
+                try:
+                    remote_nets.remove(input("Enter remote network to delete:\n"))
+                    print("\nRemote Networks:")
+                    for net in remote_nets:
+                        print(net)
+                    print()
+                except ValueError:
+                    print("Remote network not in list.")
+                    print("\nRemote Networks:")
+                    for net in remote_nets:
+                        print(net)
+                    print()
+                    continue
+            else:
+                remote_nets.append(remote_net)
+            print("Remote Networks:")
+            for net in remote_nets:
+                print(net)
 
     # Inbound Rule
     if dev_grp:
