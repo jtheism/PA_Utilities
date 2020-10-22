@@ -63,8 +63,8 @@ v9_type2_dict = {
 }
 
 v9_type3_dict = {
-    "dev-grp": "load config partial mode **mode from running-config.xml from-xpath devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] from **src_config" ,
-    "template": "load config partial mode **mode from running-config.xml from-xpath devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] from **src_config"
+    "dev-grp": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**src_devgrp'] to-xpath /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='**dest_devgrp'] from **src_config" ,
+    "template": "load config partial mode **mode from-xpath devices/entry[@name='localhost.localdomain']/template/entry[@name='**src_template'] to-xpath /config/devices/entry[@name='localhost.localdomain']/template/entry[@name='**dest_template'] from **src_config"
 }
 
 modes = {"1": "merge", "2": "append", "3": "replace"}
@@ -181,6 +181,9 @@ def type2(selected):
 
 def type3():
     cmds_list = []
+    src_config = input("Enter source config name:\n")
+    src_vsys = input("Enter source vsys #:\n")
+    dst_vsys = input("Enter destination vsys #:\n")
     while True:
         selected = input("Which are you trying to copy?  1. Device Group   2. Template   3. Both\n")
         if selected not in ["1", "2", "3"]:
