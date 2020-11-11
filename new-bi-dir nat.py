@@ -39,11 +39,12 @@ def parse_nat_sheet(import_sheet):
     # index = 1
     for row in import_sheet.iter_rows(min_row=2):
         if is_panorama:
+            # print(row[10].value)
             d[row[0].value] = {"rule": row[1].value, "zone": row[5].value, "internal_ip": row[7].value,
-                               "public_ip": row[10].value.lstrip("static-ip;").rstrip(";bi-directional: yes")}
+                               "public_ip": row[10].value[10:-20]}
         else:
             d[row[0].value] = {"rule": row[1].value, "zone": row[4].value, "internal_ip": row[6].value,
-                               "public_ip": row[9].value.lstrip("static-ip;").rstrip(";bi-directional: yes")}
+                               "public_ip": row[9].value[10:-20]}
     return d
 
 
