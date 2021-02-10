@@ -129,6 +129,7 @@ set profiles virus Antivirus-1 decoder pop3 action reset-both wildfire-action re
 set profiles virus Antivirus-1 decoder imap action reset-both wildfire-action reset-both
 set profiles virus Antivirus-1 decoder http action reset-both wildfire-action reset-both
 set profiles virus Antivirus-1 decoder ftp action reset-both wildfire-action reset-both
+set profiles virus Antivirus-1 decoder http2 action reset-both wildfire-action reset-both
 set profiles spyware Anti-Spyware-1 rules simple-critical severity critical threat-name any category any packet-capture single-packet action reset-both
 set profiles spyware Anti-Spyware-1 rules simple-high severity high threat-name any category any packet-capture single-packet action reset-both
 set profiles spyware Anti-Spyware-1 rules simple-medium severity medium threat-name any category any packet-capture single-packet action reset-both
@@ -161,36 +162,36 @@ set profile-group "Threat Prevention Group" virus Antivirus-1 spyware Anti-Spywa
 set shared log-settings profiles "Log Forwarding" match-list Placeholder log-type wildfire
 set shared log-settings profiles "Log Forwarding" match-list Placeholder filter "All Logs"
 set user-id-collector setting ip-user-mapping-timeout 240
-set external-list Palo-Alto-Networks-Known-Malicious-IPs type predefined-ip url panw-known-ip-list description "PANW Known Malicious IPs"
-set external-list Palo-Alto-Networks-High-Risk-IPs type predefined-ip url panw-highrisk-ip-list description "PANW High Risk IPs"
-set external-list Palo-Alto-Networks-Bulletproof-IPs type predefined-ip url panw-bulletproof-ip-list description "PANW Bulletproof IPs"
-set external-list "Spamhaus DROP" type ip recurring hourly
-set external-list "Spamhaus DROP" type ip url http://panwdbl.appspot.com/lists/shdrop.txt
-set external-list "Spamhaus DROP" type ip description "DROP Don't Route Or Peer.See http://www.spamhaus.org/drop"
-set external-list "Spamhaus EDROP" type ip recurring hourly
-set external-list "Spamhaus EDROP" type ip url http://panwdbl.appspot.com/lists/shedrop.txt
-set external-list "Spamhaus EDROP" type ip description 'EDROP are advisory "drop all traffic" lists See http://www.spamhaus.org/drop'
-set external-list BruteForceBlocker type ip recurring hourly
-set external-list BruteForceBlocker type ip url http://panwdbl.appspot.com/lists/bruteforceblocker.txt
-set external-list BruteForceBlocker type ip description "See http://danger.rulez.sk/index.php/bruteforceblocker"
-set external-list "Malware Domain List" type ip recurring hourly
-set external-list "Malware Domain List" type ip url http://panwdbl.appspot.com/lists/mdl.txt
-set external-list "Malware Domain List" type ip description "See http://www.malwaredomainlist.com"
-set external-list "Emerging Threats TOR" type ip recurring hourly
-set external-list "Emerging Threats TOR" type ip url http://panwdbl.appspot.com/lists/ettor.txt
-set external-list "Emerging Threats TOR" type ip description "Emerging Threats Tor rules. See http://doc.emergingthreats.net/bin/view/Main/TorRules"
-set external-list "Emerging Threats Known Compromised Hosts" type ip recurring hourly
-set external-list "Emerging Threats Known Compromised Hosts" type ip url http://panwdbl.appspot.com/lists/etcompromised.txt
-set external-list "Emerging Threats Known Compromised Hosts" type ip description "See http://doc.emergingthreats.net/bin/view/Main/CompromisedHost"
-set external-list "Dshield Block List" type ip recurring hourly
-set external-list "Dshield Block List" type ip url http://panwdbl.appspot.com/lists/dshieldbl.txt
-set external-list "Dshield Block List" type ip description "Worst 20 IP Ranges on Internet"
-set external-list "SSL Abuse List" type ip recurring hourly
-set external-list "SSL Abuse List" type ip url http://panwdbl.appspot.com/lists/sslabuseiplist.txt
-set external-list "SSL Abuse List" type ip description "SSLBL 30 days block list. See http://sslbl.abuse.ch/blacklist"
-set external-list "Zeus Blocklist" type ip recurring hourly
-set external-list "Zeus Blocklist" type ip url http://panwdbl.appspot.com/lists/zeustrackerbadips.txt
-set external-list "Zeus Blocklist" type ip description "Zeus C&C Blocklist. See http://zeustracker.abuse.ch/blocklist.php"
+set external-list "EDL - Spamhaus DROP" type ip recurring hourly
+set external-list "EDL - Spamhaus DROP" type ip url http://www.spamhaus.org/drop/drop.txt
+set external-list "EDL - Spamhaus DROP" type ip description 'DROP (Don't Route Or Peer) advisory "drop all traffic" lists, consisting of stolen 'hijacked' netblocks and netblocks controlled entirely by criminals and professional spammers. Spamhaus (c) data used with permission See http://www.spamhaus.org/drop/'
+set external-list "EDL - Spamhaus EDROP" type ip recurring hourly
+set external-list "EDL - Spamhaus EDROP" type ip url http://www.spamhaus.org/drop/edrop.txt
+set external-list "EDL - Spamhaus EDROP" type ip description 'EDROP is an advisory "drop all traffic" list, consisting of stolen 'hijacked' netblocks and netblocks controlled entirely by criminals and professional spammers. Spamhaus (c) data used with permission See http://www.spamhaus.org/drop/'
+set external-list "EDL - BruteForceBlocker" type ip recurring hourly
+set external-list "EDL - BruteForceBlocker" type ip url http://opendbl.net/lists/bruteforce.list
+set external-list "EDL - BruteForceBlocker" type ip description "See http://danger.rulez.sk/index.php/bruteforceblocker/"
+set external-list "EDL - Emerging Threats - Known Compromised Hosts" type ip recurring hourly
+set external-list "EDL - Emerging Threats - Known Compromised Hosts" type ip url http://opendbl.net/lists/etknown.list
+set external-list "EDL - Emerging Threats - Known Compromised Hosts" type ip description "This ruleset is compiled from a number of sources and contains significantly infected and hostile hosts. "
+set external-list "EDL - TOR exit nodes" type ip recurring hourly
+set external-list "EDL - TOR exit nodes" type ip url http://opendbl.net/lists/tor-exit.list
+set external-list "EDL - TOR exit nodes" type ip description "A list of known TOR exit nodes"
+set external-list "EDL - DShield BlockList" type ip recurring hourly
+set external-list "EDL - DShield BlockList" type ip url http://opendbl.net/lists/dshield.list
+set external-list "EDL - DShield BlockList" type ip description "20 Worst IP Ranges on the Internet"
+set external-list "EDL - SSL Abuse List" type ip recurring hourly
+set external-list "EDL - SSL Abuse List" type ip url http://opendbl.net/lists/sslblock.list
+set external-list "EDL - SSL Abuse List" type ip description "SSLBL 30 days block list. See https://sslbl.abuse.ch/blacklist/"
+set external-list "EDL - PAN-Known-Malicious-IPs" type predefined-ip url panw-known-ip-list
+set external-list "EDL - PAN-High-Risk-IPs" type predefined-ip url panw-highrisk-ip-list
+set external-list "EDL - PAN-Bulletproof-IPs" type predefined-ip url panw-bulletproof-ip-list
+set external-list "EDL - Blocklist.de All" type ip recurring five-minute
+set external-list "EDL - Blocklist.de All" type ip description "Blocklist.de all list contains IP addresses that have attacked one of our customers/servers in the last 48 hours"
+set external-list "EDL - Blocklist.de All" type ip url http://opendbl.net/lists/blocklistde-all.list
+set external-list "EDL - Talos" type ip recurring five-minute
+set external-list "EDL - Talos" type ip description "Talos is a list from Cisco Talos that contains known malicious network threats."
+set external-list "EDL - Talos" type ip url http://opendbl.net/lists/talos.list
 set address PANW-DNS-Sinkhole fqdn sinkhole.paloaltonetworks.com
 set application-group Unsanctioned-Applications members [ bittorrent bittorrent-sync irc ]
 set rulebase default-security-rules rules intrazone-default action allow log-end yes log-setting "Log Forwarding" profile-setting group "Threat Prevention Group"
@@ -198,7 +199,7 @@ set rulebase default-security-rules rules interzone-default log-end yes action d
 set rulebase security rules "Inbound EDL Drop" profile-setting group "Threat Prevention Group"
 set rulebase security rules "Inbound EDL Drop" to any
 set rulebase security rules "Inbound EDL Drop" from **Untrust
-set rulebase security rules "Inbound EDL Drop" source [ BruteForceBlocker "Dshield Block List" "Emerging Threats Known Compromised Hosts" "Emerging Threats TOR" "Malware Domain List" Palo-Alto-Networks-High-Risk-IPs Palo-Alto-Networks-Known-Malicious-IPs Palo-Alto-Networks-Bulletproof-IPs "Spamhaus DROP" "Spamhaus EDROP" "SSL Abuse List" "Zeus Blocklist" ]
+set rulebase security rules "Inbound EDL Drop" source [ "EDL - Spamhaus DROP" "EDL - Spamhaus EDROP" "EDL - BruteForceBlocker" "EDL - Emerging Threats - Known Compromised Hosts" "EDL - TOR exit nodes" "EDL - DShield BlockList" "EDL - SSL Abuse List" "EDL - PAN-Known-Malicious-IPs" "EDL - PAN-High-Risk-IPs" "EDL - PAN-Bulletproof-IPs" "EDL - Blocklist.de All" "EDL - Talos" ]
 set rulebase security rules "Inbound EDL Drop" destination any
 set rulebase security rules "Inbound EDL Drop" source-user any
 set rulebase security rules "Inbound EDL Drop" category any
@@ -212,7 +213,7 @@ set rulebase security rules "Outbound EDL Deny" profile-setting group "Threat Pr
 set rulebase security rules "Outbound EDL Deny" to **Untrust
 set rulebase security rules "Outbound EDL Deny" from any
 set rulebase security rules "Outbound EDL Deny" source any
-set rulebase security rules "Outbound EDL Deny" destination [ BruteForceBlocker "Dshield Block List" "Emerging Threats Known Compromised Hosts" "Emerging Threats TOR" "Malware Domain List" Palo-Alto-Networks-High-Risk-IPs Palo-Alto-Networks-Known-Malicious-IPs Palo-Alto-Networks-Bulletproof-IPs "Spamhaus DROP" "Spamhaus EDROP" "SSL Abuse List" "Zeus Blocklist" ]
+set rulebase security rules "Outbound EDL Deny" destination [ "EDL - Spamhaus DROP" "EDL - Spamhaus EDROP" "EDL - BruteForceBlocker" "EDL - Emerging Threats - Known Compromised Hosts" "EDL - TOR exit nodes" "EDL - DShield BlockList" "EDL - SSL Abuse List" "EDL - PAN-Known-Malicious-IPs" "EDL - PAN-High-Risk-IPs" "EDL - PAN-Bulletproof-IPs" "EDL - Blocklist.de All" "EDL - Talos" ]
 set rulebase security rules "Outbound EDL Deny" source-user any
 set rulebase security rules "Outbound EDL Deny" category any
 set rulebase security rules "Outbound EDL Deny" application any
