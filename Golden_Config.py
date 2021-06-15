@@ -4,14 +4,23 @@ from tkinter.filedialog import Tk, asksaveasfilename
 from tkinter import messagebox
 Tk().withdraw()  # Prevents tkinter window from opening
 
-models = {1: ["PA-220", 2100, 3990], 2: ["PA-820", 4150, 7885], 3: ["PA-850", 6500, 12350],
-          4: ["PA-3220", 28500, 54150], 5: ["PA-3250", 42000, 79800], 6: ["PA-3260", 59000, 112100],
-          7: ["PA-5220", 66500, 126350], 8: ["PA-5250", 142000, 269800], 9: ["PA-5260", 195000, 370500],
-          10: ["PA-5280", 195000, 370500], 11: ["PA-7050", 1450000, 2755000], 12: ["PA-7080", 2400000, 4560000],
-          13: ["VM-50", 1500, 2850], 14: ["VM-100", 7500, 14250], 15: ["VM-200", 7500, 14250],
-          16: ["VM-300", 15000, 28500], 17: ["VM-500", 30000, 57000], 18: ["VM-700", 60000, 114000],
-          19: ["VM-1000-HV", 15000, 28500]
-          }
+# models = {1: ["PA-220", 4200], 2: ["PA-820", 8300], 3: ["PA-850", 13000],
+#           4: ["PA-3220", 57000], 5: ["PA-3250", 84000], 6: ["PA-3260", 118000],
+#           7: ["PA-5220", 150000], 8: ["PA-5250", 284000], 9: ["PA-5260", 390000],
+#           10: ["PA-5280", 390000], 11: ["PA-7050", 2900000], 12: ["PA-7080", 4800000],
+#           13: ["VM-50", 3000], 14: ["VM-100", 15000], 15: ["VM-200", 15000],
+#           16: ["VM-300", 30000], 17: ["VM-500", 60000], 18: ["VM-700", 120000],
+#           19: ["VM-1000-HV", 30000]
+#           }
+#
+# models_panos10 = {1: ["PA-220", 4300], 2: ["PA-820", 8600], 3: ["PA-850", 13000],
+#           4: ["PA-3220", 57000], 5: ["PA-3250", 73000], 6: ["PA-3260", 105000],
+#           7: ["PA-5220", 180000], 8: ["PA-5250", 382000], 9: ["PA-5260", 600000],
+#           10: ["PA-5280", 600000], 11: ["PA-7050", 4000000], 12: ["PA-7080", 6000000],
+#           13: ["VM-50", 3000], 14: ["VM-100", 15000], 15: ["VM-200", 15000],
+#           16: ["VM-300", 30000], 17: ["VM-500", 60000], 18: ["VM-700", 120000],
+#           19: ["VM-1000-HV", 30000]
+#           }
 
 
 text_list = ["set deviceconfig", "set mgt-config", "set network profiles", "set zone", "set tag", "set profiles",
@@ -23,8 +32,27 @@ cmds_list = []
 pano_cmds = []
 
 panos_ver = None
-while panos_ver not in ["1", "2"]:
-    panos_ver = input("Select which PAN-OS version:\n\t1. 9.0\n\t2. 9.1\n")
+while panos_ver not in ["1", "2", "3"]:
+    panos_ver = input("Select which PAN-OS version:\n\t1. 9.0\n\t2. 9.1\n\t3. 10.0\n")
+
+if panos_ver == "1" or panos_ver == "2":
+    models = {1: ["PA-220", 4200], 2: ["PA-820", 8300], 3: ["PA-850", 13000],
+              4: ["PA-3220", 57000], 5: ["PA-3250", 84000], 6: ["PA-3260", 118000],
+              7: ["PA-5220", 150000], 8: ["PA-5250", 284000], 9: ["PA-5260", 390000],
+              10: ["PA-5280", 390000], 11: ["PA-7050", 2900000], 12: ["PA-7080", 4800000],
+              13: ["VM-50", 3000], 14: ["VM-100", 15000], 15: ["VM-200", 15000],
+              16: ["VM-300", 30000], 17: ["VM-500", 60000], 18: ["VM-700", 120000],
+              19: ["VM-1000-HV", 30000]
+              }
+else:
+    models = {1: ["PA-220", 4300], 2: ["PA-820", 8600], 3: ["PA-850", 13000],
+              4: ["PA-3220", 57000], 5: ["PA-3250", 73000], 6: ["PA-3260", 105000],
+              7: ["PA-5220", 180000], 8: ["PA-5250", 382000], 9: ["PA-5260", 600000],
+              10: ["PA-5280", 600000], 11: ["PA-7050", 4000000], 12: ["PA-7080", 6000000],
+              13: ["VM-50", 3000], 14: ["VM-100", 15000], 15: ["VM-200", 15000],
+              16: ["VM-300", 30000], 17: ["VM-500", 60000], 18: ["VM-700", 120000],
+              19: ["VM-1000-HV", 30000]
+              }
 
 u_zone = input(f'Enter desired outside zone name:\n')
 t_zone = input(f'Enter desired inside zone name:\n')
@@ -50,6 +78,15 @@ elif panos_ver == "2":
             else:
                 cmds_list.append(line)
 
+elif panos_ver == "3":
+    with open("V10.0-GoldCfgSetCmds", "r") as cmds_file:
+        for line in cmds_file:
+            if "**Untrust" in line:
+                cmds_list.append(line.replace("**Untrust", u_zone))
+            elif "**Trust" in line:
+                cmds_list.append(line.replace("**Trust", t_zone))
+            else:
+                cmds_list.append(line)
 
 is_panorama = input("Is this for Panorama? (y or n)\n").lower()
 # print(is_panorama)
@@ -79,8 +116,9 @@ while True:
         continue
 
 cmds_out = [line.replace("alarm-rate a_a_rate activate-rate a_a_rate maximal-rate m_rate",
-                         "alarm-rate " + str(models[is_model][1]) + " activate-rate " + str(models[is_model][1]) +
-                         " maximal-rate " + str(models[is_model][2])) for line in cmds_list]
+                         "alarm-rate " + str(int(models[is_model][1]*.5)) + " activate-rate " +
+                         str(int(models[is_model][1]*.75)) +
+                         " maximal-rate " + str(int(models[is_model][1]*.9))) for line in cmds_list]
 
 
 if is_panorama == "y":
@@ -91,9 +129,9 @@ if is_panorama == "y":
                  "set zone": f"set template {template_name} config vsys vsys1 zone", "set tag": "set shared tag",
                  "set profiles": f"set shared profiles", "set profile-group": "set shared profile-group",
                  "set shared log-settings profiles": f"set shared log-settings profiles",
-                 "set user-id-collector setting ip-user-mapping-timeout 240":
+                 "set user-id-collector setting ip-user-mapping-timeout 720":
                      f"set template {template_name} config vsys vsys1 user-id-collector setting "
-                     f"ip-user-mapping-timeout 240",
+                     f"ip-user-mapping-timeout 720",
                  "set external-list": "set shared external-list", "set address": "set shared address",
                  "set application-group": "set shared application-group",
                  "set rulebase default-security-rules rules": f"set device-group {devicegroup_name} post-rulebase "
